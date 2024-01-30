@@ -1,14 +1,13 @@
 import Task from "./Task";
 import TaskHeader from "./TaskHeader";
 
-export default function TaskBoard({tasks}){
+export default function TaskBoard({tasks, onAddTask, onEditTask, onClose, onOpen}){
     return (
         <section className="mb-20" id="tasks">
 		
 		<div className="container">
 			<div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-				<TaskHeader/>
-                
+				<TaskHeader onClose={onClose} onOpen={onOpen}/>
 				<div className="overflow-auto">
 					<table className="table-fixed overflow-auto xl:w-full">
 						<thead>
@@ -22,7 +21,7 @@ export default function TaskBoard({tasks}){
 							</tr>
 						</thead>
 						<tbody>
-							{tasks.map((task => <Task key={task.id} task={task}/> ))}
+							{tasks.map((task => <Task key={task.id} task={task} onEditTask={onEditTask}/> ))}
 						</tbody>
 					</table>
 				</div>

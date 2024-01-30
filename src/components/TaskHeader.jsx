@@ -1,16 +1,12 @@
-import { useState } from "react";
-import AddTask from "./AddTask";
 
-export default function TaskHeader(){
-    const [isShow, setIsShow] = useState(false);
+export default function TaskHeader({onClose, onOpen}){
+  
 
-    const handleCloseAddTask = () =>{
-        setIsShow(false);
-    }
+
     return (
       <>
         <div className="mb-14 items-center justify-between sm:flex">
-                    {isShow && <AddTask onClose={handleCloseAddTask}/>}
+                    
 					<h2 className="text-2xl font-semibold max-sm:mb-4">Your Tasks</h2>
 					<div className="flex items-center space-x-5">
 						<form>
@@ -30,7 +26,7 @@ export default function TaskHeader(){
 								</div>
 							</div>
 						</form>
-						<button className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold" onClick={()=> setIsShow(true)}>Add Task</button>
+						<button className="rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold" onClick={onOpen}>Add Task</button>
 						<button className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold">Delete All</button>
 					</div>
 		</div>
