@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function AddTask({ onClose, onAddTask, onOpen, updateData }) {
+  const [isError, setIsError] = useState(true);
   const [data, setData] = useState(
     updateData || {
       id: crypto.randomUUID(),
@@ -11,6 +12,15 @@ export default function AddTask({ onClose, onAddTask, onOpen, updateData }) {
       isFavorite: false,
     }
   );
+
+  // console.log("data", data);
+  // console.log(updateData);
+
+  useEffect(() => {
+    if (updateData) {
+      setIsError(false);
+    }
+  }, [updateData]);
 
   // If UpdateData null then return true
   const [isAdd, setIsAdd] = useState(Object.is(updateData, null));
@@ -25,8 +35,19 @@ export default function AddTask({ onClose, onAddTask, onOpen, updateData }) {
       ...data,
       [name]: value,
     });
+
+    // if (
+    //   data?.title !== "" &&
+    //   data?.description !== "" &&
+    //   data?.tags.length >= 0 &&
+    //   data?.priority !== ""
+    // ) {
+    //   setIsError(false);
+    // } else {
+    //   setIsError(true);
+    // }
   };
-  console.log("data", data);
+
   return (
     <div className="bg-black bg-opacity-70 h-full w-full z-10 absolute top-20 left-0">
       <form className="mx-auto my-10 w-full max-w-[740px] rounded-xl border border-[#FEFBFB]/[36%] bg-[#191D26] p-9 max-md:px-4 lg:my-20 lg:p-11">
@@ -78,14 +99,14 @@ export default function AddTask({ onClose, onAddTask, onOpen, updateData }) {
                 className="block w-full cursor-pointer rounded-md bg-[#2D323F] px-3 py-2.5"
                 name="priority"
                 id="priority"
+                value={data.priority}
                 onChange={handleChangeData}
                 required
-                value={data.priority}
               >
                 <option value="">Select Priority</option>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
               </select>
             </div>
           </div>
@@ -93,6 +114,7 @@ export default function AddTask({ onClose, onAddTask, onOpen, updateData }) {
 
         <div className="mt-16 flex justify-center gap-x-6 lg:mt-20">
           <button
+            // disabled={isError}
             type="submit"
             className="rounded bg-blue-600 px-4 py-2 text-white transition-all hover:opacity-80"
             onClick={(e) => {

@@ -22,7 +22,4 @@ export const initialTasks = [{
     priority: "High",
     isFavorite: true,
   }
-
-
-
 ];

@@ -1,13 +1,13 @@
 import Task from "./Task";
 import TaskHeader from "./TaskHeader";
 
-export default function TaskBoard({tasks, onAddTask, onEditTask, onClose, onOpen}){
+export default function TaskBoard({tasks, onAddTask, onEditTask, onClose, onOpen, onDelete, onAllDelete, onSearch, onFev}){
     return (
         <section className="mb-20" id="tasks">
 		
 		<div className="container">
 			<div className="rounded-xl border border-[rgba(206,206,206,0.12)] bg-[#1D212B] px-6 py-8 md:px-9 md:py-16">
-				<TaskHeader onClose={onClose} onOpen={onOpen}/>
+				<TaskHeader onClose={onClose} onOpen={onOpen} onAllDelete={onAllDelete} onSearch={onSearch}/>
 				<div className="overflow-auto">
 					<table className="table-fixed overflow-auto xl:w-full">
 						<thead>
@@ -21,7 +21,7 @@ export default function TaskBoard({tasks, onAddTask, onEditTask, onClose, onOpen
 							</tr>
 						</thead>
 						<tbody>
-							{tasks.map((task => <Task key={task.id} task={task} onEditTask={onEditTask}/> ))}
+							{tasks?.length >0 ? <>{tasks?.map((task => <Task key={task.id} task={task} onEditTask={onEditTask} onDelete={onDelete} onFev={onFev}/> ))}</>: <p>No data found</p>}
 						</tbody>
 					</table>
 				</div>

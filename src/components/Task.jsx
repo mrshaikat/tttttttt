@@ -1,7 +1,7 @@
-export default function Task({task, onEditTask}) {
+export default function Task({task, onEditTask, onDelete, onFev}) {
   return (
     <tr className="border-b border-[#2E3443] [&>td]:align-baseline [&>td]:px-4 [&>td]:py-2">
-      <td>
+      <td onClick={()=> onFev(task.id)}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="icon icon-tabler icon-tabler-star"
@@ -9,8 +9,8 @@ export default function Task({task, onEditTask}) {
           height="24"
           viewBox="0 0 24 24"
           strokeWidth="2"
-          stroke="currentColor"
-          fill="none"
+          stroke={`${task.isFavorite ? "yellow" : "currentColor"}`}
+          fill={`${task.isFavorite ? "yellow" : "none"}`}
           strokeLinecap="round"
           strokeLinejoin="round"
         >
@@ -27,7 +27,7 @@ export default function Task({task, onEditTask}) {
       <td>
         <ul className="flex justify-center gap-1.5 flex-wrap">
          {task.tags.map((tag, index ) =>  <li key={index}>
-            <div className={`inline-block h-5 whitespace-nowrap rounded-[45px] bg-${index % 2 === 0 ? "red" : "blue"} px-2.5 text-sm capitalize text-[#F4F5F6]`}>
+            <div className={`inline-block h-5 whitespace-nowrap rounded-[45px] bg-[#FE1A1AB5] px-2.5 text-sm capitalize text-[#F4F5F6]`}>
               {tag}
             </div>
           </li>)}
@@ -36,7 +36,7 @@ export default function Task({task, onEditTask}) {
       <td className="text-center">{task.priority}</td>
       <td>
         <div className="flex items-center justify-center space-x-3">
-          <button className="text-red-500">Delete</button>
+          <button className="text-red-500" onClick={()=> onDelete(task.id)}>Delete</button>
           <button className="text-blue-500" onClick={()=> onEditTask(task)}>Edit</button>
         </div>
       </td>
