@@ -1,12 +1,13 @@
 import { useReducer, useState } from "react";
-import taskReducer from "../reducer/taskReducer";
 import "./App.css";
 import Footer from "./Footer";
 import Header from "./Header";
 import AddTask from "./components/AddTask";
 import HeroSection from "./components/HeroSectction";
 import TaskBoard from "./components/TaskBoard";
+import { TaskContext } from "./context/taskContext";
 import { initialTasks } from "./data/taskData";
+import taskReducer from "./reducer/taskReducer";
 function App() {
   const [tasks, dispatch] = useReducer(taskReducer, initialTasks);
   const [UpdateData, setUpdateData]= useState(null);
@@ -100,7 +101,7 @@ const handleOpenAddTask = () =>{
   }
 
   return (
-    <>
+    <TaskContext.Provider value={{task, dispatch}}>
       <Header />
       <div className="flex flex-col justify-center items-center">
         <HeroSection/>
@@ -108,7 +109,7 @@ const handleOpenAddTask = () =>{
         <TaskBoard onAllDelete={handleDeleteAllTask} onDelete={handleDelete} onAddTask={handleAddTask} tasks={tasks} onEditTask={handleEditTask} onClose={handleCloseAddTask} onOpen={handleOpenAddTask} onSearch={handleSearch} onFev={handleFavorite}/>
       </div>
       <Footer />
-    </>
+    </TaskContext.Provider>
   );
 }
 
